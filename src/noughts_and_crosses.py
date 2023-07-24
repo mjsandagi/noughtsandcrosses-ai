@@ -51,7 +51,7 @@ class Board:
                 colour = CIRCLE_COLOUR if self.squares[1][1] == 2 else CROSS_COLOUR
                 iPos = (LINE_OFFSET, LINE_OFFSET)
                 fPos = (WIDTH - LINE_OFFSET, HEIGHT - OFFSET)
-                pygame.draw.line(screen, colour, iPos, fPos, LINE_WIDTH)
+                pygame.draw.line(screen, colour, iPos, fPos, CROSS_WIDTH)
             return self.squares[1][1]
 
         # Ascending diagonal wins
@@ -60,7 +60,7 @@ class Board:
                 colour = CIRCLE_COLOUR if self.squares[1][1] == 2 else CROSS_COLOUR
                 iPos = (LINE_OFFSET, HEIGHT - LINE_OFFSET)
                 fPos = (WIDTH - LINE_OFFSET, OFFSET)
-                pygame.draw.line(screen, colour, iPos, fPos, LINE_WIDTH)
+                pygame.draw.line(screen, colour, iPos, fPos, CROSS_WIDTH)
             return self.squares[1][1]
         
         # No wins yet
