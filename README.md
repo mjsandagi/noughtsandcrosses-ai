@@ -26,11 +26,17 @@ Noughts and Crosses is a two-player game played on a 3x3 grid. Players take turn
 -   **"1":** Sets the AI level to 1 (hard - unbeatable).
 -   **"R":** Restarts the game.
 
-## Unbeatable AI using Minimax Algorithm
+## Changing Themes
+
+To change the themes of the game, you need to modify the `constants.py` file. In this file, you will find different colour combinations for different themes.
+
+Simply comment out the current theme and uncomment the theme you would like to switch to.
+
+## An unbeatable AI using the Minimax Algorithm
 
 The Minimax algorithm is a decision-making algorithm used in two-player games, such as Noughts and Crosses, to determine the best possible move for a player. It explores all possible moves by simulating the game to the end and assigning a score to each possible outcome. The AI player chooses the move with the highest score when it's its turn and the lowest score when it's the opponent's turn.
 
-### How the Minimax Algorithm Works
+### How the Minimax Algorithm works
 
 1. The algorithm takes the current state of the Noughts and Crosses board as input.
 2. If the game has reached a terminal state (win, lose, or draw), the algorithm returns a score based on the outcome (positive score for AI win, negative score for AI loss, and 0 for a draw).
