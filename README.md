@@ -37,7 +37,7 @@ Simply comment out the current theme and uncomment the theme you would like to s
 In Player vs. AI mode, to make the AI start first change the `self.player` attribute `line 162`:
 
 ```python
-self.player = 1 # Change this to 2 if you want the AI to start (or 1 if you want the human player to start)
+self.player = 1 # Change this to 2 to make the AI start (or 1 to make the human player to start).
 
 ```
 
