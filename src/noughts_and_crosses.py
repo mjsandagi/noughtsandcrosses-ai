@@ -159,7 +159,7 @@ class Game:
     def __init__(self):
         self.board = Board()
         self.ai = AI()
-        self.player = 1 # P1-Crosses and P2-Noughts
+        self.player = 1 # P1-Crosses and P2-Noughts [Change this to 2 if you want the AI to start (or 1 if you want the human player to start)]
         self.gamemode = "ai" # PvP or Ai
         self.running = True
         self.show_lines()
