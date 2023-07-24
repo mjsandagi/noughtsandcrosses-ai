@@ -12,7 +12,7 @@ CROSS_WIDTH = 20
 RADIUS = SQSIZE // 3
 
 OFFSET = 30
-
+LINE_OFFSET = 20
 # Colours
 
 # # Turquoise theme

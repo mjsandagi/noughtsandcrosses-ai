@@ -18,7 +18,7 @@ class Board:
         self.empty_sqrs = self.squares # [SQUARES]
         self.marked_sqrs = 0
 
-    def final_state(self):
+    def final_state(self, show=False):
         """
         @return 0 if there is no win yet
         @return 1 if player 1 wins
@@ -28,19 +28,39 @@ class Board:
         # Vertical wins
         for col in range(COLS):
             if self.squares[0][col] == self.squares[1][col] == self.squares[2][col] != 0: # != 0 so that it ignores wholly empty columns 
+                if show:
+                    colour = CIRCLE_COLOUR if self.squares[0][col] == 2 else CROSS_COLOUR
+                    iPos = (col * SQSIZE + SQSIZE // 2, LINE_OFFSET)
+                    fPos = (col * SQSIZE + SQSIZE // 2, HEIGHT - LINE_OFFSET)
+                    pygame.draw.line(screen, colour, iPos, fPos, LINE_WIDTH)
                 return self.squares[0][col]
             
         # Horizontal wins
         for row in range(ROWS):
             if self.squares[row][0] == self.squares[row][1] == self.squares[row][2] != 0: # != 0 so that it ignores wholly empty rows 
+                if show:
+                    colour = CIRCLE_COLOUR if self.squares[row][0] == 2 else CROSS_COLOUR
+                    iPos = (LINE_OFFSET, row * SQSIZE + SQSIZE // 2)
+                    fPos = (WIDTH - LINE_OFFSET, row * SQSIZE + SQSIZE // 2)
+                    pygame.draw.line(screen, colour, iPos, fPos, LINE_WIDTH)
                 return self.squares[row][0]
             
         # Descending diagonal wins
         if self.squares[0][0] == self.squares[1][1] == self.squares[2][2] != 0:
+            if show:
+                colour = CIRCLE_COLOUR if self.squares[1][1] == 2 else CROSS_COLOUR
+                iPos = (LINE_OFFSET, LINE_OFFSET)
+                fPos = (WIDTH - LINE_OFFSET, HEIGHT - OFFSET)
+                pygame.draw.line(screen, colour, iPos, fPos, LINE_WIDTH)
             return self.squares[1][1]
 
         # Ascending diagonal wins
         if self.squares[2][0] == self.squares[1][1] == self.squares[0][2] != 0:
+            if show:
+                colour = CIRCLE_COLOUR if self.squares[1][1] == 2 else CROSS_COLOUR
+                iPos = (LINE_OFFSET, HEIGHT - LINE_OFFSET)
+                fPos = (WIDTH - LINE_OFFSET, OFFSET)
+                pygame.draw.line(screen, colour, iPos, fPos, LINE_WIDTH)
             return self.squares[1][1]
         
         # No wins yet
@@ -183,7 +203,7 @@ class Game:
         self.gamemode = "ai" if self.gamemode == "pvp" else "pvp"
 
     def isover(self):
-        return self.board.final_state() != 0 or self.board.isfull() and not self.board.final_state()
+        return self.board.final_state(show=True) != 0 or self.board.isfull() and not self.board.final_state()
 
     def reset(self):
         self.__init__()
