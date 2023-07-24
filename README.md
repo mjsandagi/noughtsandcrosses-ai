@@ -40,6 +40,6 @@ The Minimax algorithm is a decision-making algorithm used in two-player games, s
 
 By following these steps, the AI can determine the best move to make in any given state of the game and ensure it never loses.
 
-Have fun playing against the unbeatable AI! If you find any issues or have suggestions for improvements, feel free to submit them.
+Have fun playing against the AI! If you find any issues or have suggestions for improvements, feel free to submit them.
 
 **Buena Suerte!!**
