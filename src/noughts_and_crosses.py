@@ -13,13 +13,58 @@ screen.fill(BG_COLOUR)
 class Board:
     def __init__(self):
         self.squares = np.zeros((ROWS, COLS)) # => [[0. 0. 0.] [0. 0. 0.] [0. 0. 0.]]
+        self.empty_sqrs = self.squares # [SQUARES]
+        self.marked_sqrs = 0
+
+    def final_state(self):
+        """
+        @return 0 if there is no win yet
+        @return 1 if player 1 wins
+        @return 2 if player 2 wins
+        """
+
+        # Vertical wins
+        for col in range(COLS):
+            if self.squares[0][col] == self.squares[1][col] == self.squares[2][col] != 0: # != 0 so that it ignores wholly empty columns 
+                return self.squares[0][col]
+            
+        # Horizontal wins
+        for row in range(ROWS):
+            if self.squares[row][0] == self.squares[row][1] == self.squares[row][1] != 0: # != 0 so that it ignores wholly empty columns 
+                return self.squares[row][0]
+            
+        # Descending diagonal wins
+        if self.squares[0][0] == self.squares[1][1] == self.squares[2][2] != 0:
+            return self.squares[1][1]
+
+        # Ascending diagonal wins
+        if self.squares[2][0] == self.squares[1][1] == self.squares[0][2] != 0:
+            return self.squares[1][1]
+        
+        # No wins yet
+        return 0
 
     def mark_sqr(self, row, col, player):
         self.squares[row][col] = player
-
-    def empty_square(self, row, col):
+        self.marked_sqrs += 1
+    
+    def empty_sqr(self, row, col):
         return self.squares[row][col] == 0
 
+    def get_empty_sqrs(self):
+        empty_sqrs = []
+        for row in range(ROWS):
+            for col in range(COLS):
+                if self.empty_sqr(row, col):
+                    empty_sqrs.append((row, col))
+        return empty_sqrs
+
+    def isfull(self):
+        return self.marked_sqrs == 9
+    
+    def isempty(self):
+        return self.marked_sqrs == 0
+    
 class Game:
     def __init__(self):
         self.board = Board()
