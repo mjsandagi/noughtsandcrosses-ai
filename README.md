@@ -19,6 +19,13 @@ This is a simple implementation of the classic Noughts and Crosses (also known a
 
 Noughts and Crosses is a two-player game played on a 3x3 grid. Players take turns to place their symbol (Nought or Cross) in an empty cell. The player who succeeds in placing three of their symbols in a horizontal, vertical, or diagonal row wins the game.
 
+## Controls
+
+-   **"G":** Changes the game mode (player vs. player or player vs. AI).
+-   **"0":** Sets the AI level to 0 (easy - random moves).
+-   **"1":** Sets the AI level to 1 (hard - unbeatable).
+-   **"R":** Restarts the game.
+
 ## Unbeatable AI using Minimax Algorithm
 
 The Minimax algorithm is a decision-making algorithm used in two-player games, such as Noughts and Crosses, to determine the best possible move for a player. It explores all possible moves by simulating the game to the end and assigning a score to each possible outcome. The AI player chooses the move with the highest score when it's its turn and the lowest score when it's the opponent's turn.
