@@ -13,7 +13,7 @@ This is a simple implementation of the classic Noughts and Crosses (also known a
 2. Install the Pygame library by running: `pip install pygame`.
 3. Clone this repository or download the ZIP file and extract it.
 4. Open a terminal or command prompt and navigate to the project directory.
-5. Run the following command to start the game: `python noughts_and_crosses.py`.
+5. Run the following command to start the game: `python src/noughts_and_crosses.py`.
 
 ## Rules of Noughts and Crosses
 
