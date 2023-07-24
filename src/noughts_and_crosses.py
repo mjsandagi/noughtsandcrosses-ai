@@ -1,3 +1,5 @@
+import copy
+import random
 import sys
 import pygame
 import numpy as np
@@ -30,7 +32,7 @@ class Board:
             
         # Horizontal wins
         for row in range(ROWS):
-            if self.squares[row][0] == self.squares[row][1] == self.squares[row][1] != 0: # != 0 so that it ignores wholly empty columns 
+            if self.squares[row][0] == self.squares[row][1] == self.squares[row][2] != 0: # != 0 so that it ignores wholly empty rows 
                 return self.squares[row][0]
             
         # Descending diagonal wins
@@ -64,14 +66,92 @@ class Board:
     
     def isempty(self):
         return self.marked_sqrs == 0
+
+class AI:
+    def __init__(self, level=1, player=2):
+        self.level = level
+        self.player = player
     
+    def rnd(self, board):
+        empty_sqrs = board.get_empty_sqrs()
+        idx = random.randrange(0, len(empty_sqrs))
+
+        return empty_sqrs[idx] # [row, col]
+
+    def minimax(self, board, maximising): 
+        # Terminal cases
+        case = board.final_state()
+
+        # Terminal case 1: Player 1 wins
+        if case == 1:
+            return 1, None # eval, move
+        
+        # Terminal case 2: Player 2 wins (AI)
+        if case == 2:
+            return -1, None 
+        
+        elif board.isfull():
+            return 0, None 
+        
+        if maximising:
+            max_eval = -100
+            best_move = None
+            empty_sqrs = board.get_empty_sqrs()
+
+            for (row, col) in empty_sqrs:
+                temp_board = copy.deepcopy(board)
+                temp_board.mark_sqr(row, col, 1)
+                eval = self.minimax(temp_board, False)[0]
+                if eval > max_eval:
+                    max_eval = eval
+                    best_move = (row, col)
+
+            return max_eval, best_move
+
+        else:
+            min_eval = 100
+            best_move = None
+            empty_sqrs = board.get_empty_sqrs()
+
+            for (row, col) in empty_sqrs:
+                temp_board = copy.deepcopy(board)
+                temp_board.mark_sqr(row, col, self.player)
+                eval = self.minimax(temp_board, True)[0]
+                if eval < min_eval:
+                    min_eval = eval
+                    best_move = (row, col)
+
+            return min_eval, best_move
+
+    def eval(self, main_board):
+        if self.level == 0:
+            # Random move
+            eval = "random"
+            move = self.rnd(main_board)
+        else:
+            # Make a move calculated by the minimax algorithm
+            eval, move = self.minimax(main_board, False)
+        # print(f"The AI has chosen to make a move at the co-ordinates {move}, with an eval of {eval}")
+        print(f"AI move: {move}, evaluation: {eval}")
+        return move
+
 class Game:
     def __init__(self):
         self.board = Board()
+        self.ai = AI()
         self.player = 1 # P1-Crosses and P2-Noughts
+        self.gamemode = "ai" # PvP or Ai
+        self.running = True
         self.show_lines()
 
+    def make_move(self, row, col):
+        self.board.mark_sqr(row, col, self.player)
+        self.draw_fig(row, col)
+        self.next_turn()
+
     def show_lines(self):
+        # Fill the game board with the background colour
+        screen.fill(BG_COLOUR)
         # Vertical
         pygame.draw.line(screen, LINE_COLOUR, (SQSIZE, 0), (SQSIZE, HEIGHT), LINE_WIDTH)
         pygame.draw.line(screen, LINE_COLOUR, (WIDTH - SQSIZE, 0), (WIDTH - SQSIZE, HEIGHT), LINE_WIDTH)
@@ -99,10 +179,20 @@ class Game:
     def next_turn(self):
         self.player = self.player % 2 + 1 # ((1P % 2 = 1) + 1 == 2P) and ((2P % 2 = 0) + 1 == 1P)
 
+    def change_gamemode(self):
+        self.gamemode = "ai" if self.gamemode == "pvp" else "pvp"
+
+    def isover(self):
+        return self.board.final_state() != 0 or self.board.isfull() and not self.board.final_state()
+
+    def reset(self):
+        self.__init__()
+
 def main():
     # Objects
     game = Game()
     board = game.board
+    ai = game.ai
 
     # Main "loop"
     while True:
@@ -111,16 +201,45 @@ def main():
                 pygame.quit()
                 sys.exit()
 
+            if event.type == pygame.KEYDOWN:
+                # "G": Change game mode
+                if event.key == pygame.K_g:
+                    game.change_gamemode()
+
+                if event.key == pygame.K_r:
+                    game.reset()
+                    board = game.board
+                    ai = game.ai
+
+                # "0": Random AI
+                if event.key == pygame.K_0:
+                    ai.level = 0
+                    print(f"AI level: {ai.level}")
+
+                # "0": Random AI
+                if event.key == pygame.K_1:
+                    ai.level = 1
+                    print(f"AI level: {ai.level}")
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # print(event.pos) => (66, 17)
                 pos = event.pos
                 col = pos[0] // SQSIZE # Converts from Cartesian co-ordinates to (columns, rows).
                 row = pos[1] // SQSIZE  
 
-                if board.empty_square(row, col):
-                    board.mark_sqr(row, col, game.player)
-                    game.draw_fig(row, col)
-                    game.next_turn()
+                if board.empty_sqr(row, col) and game.running:
+                    game.make_move(row, col)
+                    
+                    if game.isover():
+                        game.running = False
+
+        if game.gamemode == "ai" and game.player == ai.player and game.running:
+            # AI methods
+            row, col = ai.eval(board)
+            game.make_move(row, col)
+
+            if game.isover():
+                game.running = False
 
         pygame.display.update()
 
