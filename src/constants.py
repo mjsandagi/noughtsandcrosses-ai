@@ -3,8 +3,9 @@ HEIGHT = 600
 
 ROWS = 3
 COLS = 3
-
 SQSIZE = WIDTH // COLS
+
+LINE_WIDTH = 15
 
 # Colours
 BG_COLOUR = (28, 170, 156)

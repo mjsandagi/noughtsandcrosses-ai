@@ -11,12 +11,21 @@ screen.fill(BG_COLOUR)
 
 class Game:
     def __init__(self):
-        pass
+        self.show_lines()
 
     def show_lines(self):
-        pass
+        # Vertical
+        pygame.draw.line(screen, LINE_COLOUR, (SQSIZE, 0), (SQSIZE, HEIGHT), LINE_WIDTH)
+        pygame.draw.line(screen, LINE_COLOUR, (WIDTH - SQSIZE, 0), (WIDTH - SQSIZE, HEIGHT), LINE_WIDTH)
+
+        # Horizontal
+        pygame.draw.line(screen, LINE_COLOUR, (0, SQSIZE), (WIDTH, SQSIZE), LINE_WIDTH)
+        pygame.draw.line(screen, LINE_COLOUR, (0, HEIGHT - SQSIZE), (WIDTH, HEIGHT - SQSIZE), LINE_WIDTH)
 
 def main():
+    # Objects
+    game = Game()
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
