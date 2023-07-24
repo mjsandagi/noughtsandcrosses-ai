@@ -37,12 +37,19 @@ class Game:
     
     def draw_fig(self, row, col):
         if self.player == 1:
-            # Draw a cross
-            pass
+            # Draws a cross
+            # Draws a line with a positive gradient
+            start_asc = (col * SQSIZE + OFFSET, row * SQSIZE + SQSIZE - OFFSET)
+            end_asc = (col * SQSIZE + SQSIZE - OFFSET, row * SQSIZE + OFFSET)
+            pygame.draw.line(screen, CROSS_COLOUR, start_asc, end_asc, CROSS_WIDTH)
+            # Draws a line with a negative gradient
+            start_desc = (col * SQSIZE + OFFSET, row * SQSIZE + OFFSET)
+            end_desc = (col * SQSIZE + SQSIZE - OFFSET, row * SQSIZE + SQSIZE - OFFSET)
+            pygame.draw.line(screen, CROSS_COLOUR, start_desc, end_desc, CROSS_WIDTH)
         elif self.player == 2:
-            # Draw a nought
-            center = ()
-            pygame.draw.circle(screen, CIRC_COLOUR, center, RADIUS, CIRC_WIDTH)
+            # Draws a nought
+            center = (col * SQSIZE + SQSIZE // 2, row * SQSIZE + SQSIZE // 2)
+            pygame.draw.circle(screen, CIRCLE_COLOUR, center, RADIUS, CIRCLE_WIDTH)
 
     def next_turn(self):
         self.player = self.player % 2 + 1 # ((1P % 2 = 1) + 1 == 2P) and ((2P % 2 = 0) + 1 == 1P)
