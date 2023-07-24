@@ -32,6 +32,17 @@ To change the themes of the game, you need to modify the `constants.py` file. In
 
 Simply comment out the current theme and uncomment the theme you would like to switch to.
 
+## Making the AI start first
+
+In Player vs. AI mode, to make the AI start first change the `self.player` attribute `line 162`:
+
+```python
+self.player = 1 # Change this to 2 if you want the AI to start (or 1 if you want the human player to start)
+
+```
+
+Note that it may take a short while for the board/move to appear, as the AI runs the minimax algorithm on an empty board
+
 ## An unbeatable AI using the Minimax Algorithm
 
 The Minimax algorithm is a decision-making algorithm used in two-player games, such as Noughts and Crosses, to determine the best possible move for a player. It explores all possible moves by simulating the game to the end and assigning a score to each possible outcome. The AI player chooses the move with the highest score when it's its turn and the lowest score when it's the opponent's turn.
