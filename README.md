@@ -28,7 +28,7 @@ Noughts and Crosses is a two-player game played on a 3x3 grid. Players take turn
 
 ## Changing Themes
 
-To change the themes of the game, you need to modify the `constants.py` file. In this file, you will find different colour combinations for different themes.
+To change the game theme, you need to modify the `constants.py` file. In this file, you will find different colour combinations for different themes.
 
 Simply comment out the current theme and uncomment the theme you would like to switch to.
 
