@@ -14,7 +14,21 @@ RADIUS = SQSIZE // 3
 OFFSET = 30
 
 # Colours
+
+# # Turquoise theme
 BG_COLOUR = (28, 170, 156)
 LINE_COLOUR = (23, 145, 135)
 CIRCLE_COLOUR = (239, 231, 200)
 CROSS_COLOUR = (66, 66, 66)
+
+# Pink theme
+# BG_COLOUR = (237, 57, 165)
+# LINE_COLOUR = (184, 35, 110)
+# CIRCLE_COLOUR = (239, 231, 200)
+# CROSS_COLOUR = (66, 66, 66)
+
+# Yellow theme
+# BG_COLOUR = (207, 207, 52)
+# LINE_COLOUR = (189, 186, 47)
+# CIRCLE_COLOUR = (240, 248, 255)
+# CROSS_COLOUR = (66, 66, 66)
