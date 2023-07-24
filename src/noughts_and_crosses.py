@@ -23,7 +23,7 @@ class Board:
 class Game:
     def __init__(self):
         self.board = Board()
-        self.player = 1
+        self.player = 1 # P1-Crosses and P2-Noughts
         self.show_lines()
 
     def show_lines(self):
@@ -35,6 +35,15 @@ class Game:
         pygame.draw.line(screen, LINE_COLOUR, (0, SQSIZE), (WIDTH, SQSIZE), LINE_WIDTH)
         pygame.draw.line(screen, LINE_COLOUR, (0, HEIGHT - SQSIZE), (WIDTH, HEIGHT - SQSIZE), LINE_WIDTH)
     
+    def draw_fig(self, row, col):
+        if self.player == 1:
+            # Draw a cross
+            pass
+        elif self.player == 2:
+            # Draw a nought
+            center = ()
+            pygame.draw.circle(screen, CIRC_COLOUR, center, RADIUS, CIRC_WIDTH)
+
     def next_turn(self):
         self.player = self.player % 2 + 1 # ((1P % 2 = 1) + 1 == 2P) and ((2P % 2 = 0) + 1 == 1P)
 
@@ -57,7 +66,8 @@ def main():
                 row = pos[1] // SQSIZE  
 
                 if board.empty_square(row, col):
-                    board.mark_sqr(row, col, game.player )
+                    board.mark_sqr(row, col, game.player)
+                    game.draw_fig(row, col)
                     game.next_turn()
 
         pygame.display.update()
