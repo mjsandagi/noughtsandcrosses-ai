@@ -20,6 +20,8 @@ class Board:
 
     def final_state(self, show=False):
         """
+        @param show: Flag to control whether to draw the winning line on the screen.
+
         @return 0 if there is no win yet
         @return 1 if player 1 wins
         @return 2 if player 2 wins
@@ -67,13 +69,27 @@ class Board:
         return 0
 
     def mark_sqr(self, row, col, player):
+        """
+        @param row: Row index of the square.
+        @param col: Column index of the square.
+        @param player: Player number (1 for Crosses, 2 for Noughts).
+        """
         self.squares[row][col] = player
         self.marked_sqrs += 1
     
     def empty_sqr(self, row, col):
+        """
+        @param row: Row index of the square.
+        @param col: Column index of the square.
+
+        @return: True if the square is empty, False otherwise.
+        """
         return self.squares[row][col] == 0
 
     def get_empty_sqrs(self):
+        """
+        @return: List of (row, col) tuples representing empty squares.
+        """
         empty_sqrs = []
         for row in range(ROWS):
             for col in range(COLS):
@@ -82,23 +98,44 @@ class Board:
         return empty_sqrs
 
     def isfull(self):
+        """
+        @return: True if the board is full. False otherwise.
+        """
         return self.marked_sqrs == 9
     
     def isempty(self):
+        """
+        @return: True if the board is empty, False otherwise.
+        """
         return self.marked_sqrs == 0
 
 class AI:
     def __init__(self, level=1, player=2):
+        """
+        @param level: AI level, 0 for random moves, 1 for minimax algorithm.
+        @param player: Player number for the AI (2 for Noughts).
+        """
         self.level = level
         self.player = player
     
     def rnd(self, board):
+        """
+        @param board: The current game board.
+
+        @return: (row, col) tuple representing the chosen move coordinates.
+        """
         empty_sqrs = board.get_empty_sqrs()
         idx = random.randrange(0, len(empty_sqrs))
 
         return empty_sqrs[idx] # [row, col]
 
     def minimax(self, board, maximising): 
+        """
+        @param board: The current game board.
+        @param maximising: Flag to indicate if the AI is maximising its move.
+
+        @return: Tuple (evaluation, move) representing the best evaluation score and corresponding move coordinates.
+        """
         # Terminal cases
         case = board.final_state()
 
@@ -144,6 +181,12 @@ class AI:
             return min_eval, best_move
 
     def eval(self, main_board):
+        """
+        @param board: The current game board.
+        @param maximising: Flag to indicate if the AI is maximising its move.
+
+        @return: Tuple (evaluation, move) representing the best evaluation score and corresponding move coordinates.
+        """
         if self.level == 0:
             # Random move
             eval = "random"
@@ -165,6 +208,10 @@ class Game:
         self.show_lines()
 
     def make_move(self, row, col):
+        """
+        @param row: Row index of the selected square.
+        @param col: Column index of the selected square.
+        """
         self.board.mark_sqr(row, col, self.player)
         self.draw_fig(row, col)
         self.next_turn()
@@ -263,4 +310,5 @@ def main():
 
         pygame.display.update()
 
-main()
+if __name__ == "__main__":
+    main()
