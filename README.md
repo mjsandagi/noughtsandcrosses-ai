@@ -41,7 +41,7 @@ self.player = 1 # Change this to 2 if you want the AI to start (or 1 if you want
 
 ```
 
-Note that it may take a short while for the board/move to appear, as the AI runs the minimax algorithm on an empty board
+Note that it may take a short while for the board/move to appear, as the AI runs the minimax algorithm on an empty board.
 
 ## An unbeatable AI using the Minimax Algorithm
 
