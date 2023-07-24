@@ -1,6 +1,6 @@
 # Noughts and Crosses AI
 
-This is a simple implementation of the classic Noughts and Crosses (also known as Tic Tac Toe) game with an unbeatable AI opponent. The AI opponent uses the Minimax algorithm to make its moves, ensuring that it will always tie or win the game, never losing.
+This is a implementation of the classic Noughts and Crosses (also known as Tic Tac Toe) game with an unbeatable AI opponent. The AI opponent uses the Minimax algorithm to make its moves, ensuring that it will always tie or win the game, never losing.
 
 ## Requirements
 
