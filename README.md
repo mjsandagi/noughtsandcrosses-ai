@@ -43,7 +43,7 @@ self.player = 1 # Change this to 2 to make the AI start (or 1 to make the human 
 
 Note that it may take a short while for the board/move to appear, as the AI runs the minimax algorithm on an empty board.
 
-## An unbeatable AI using the Minimax Algorithm
+## Truly Unbeatable
 
 The Minimax algorithm is a decision-making algorithm used in two-player games, such as Noughts and Crosses, to determine the best possible move for a player. It explores all possible moves by simulating the game to the end and assigning a score to each possible outcome. The AI player chooses the move with the highest score when it's its turn and the lowest score when it's the opponent's turn.
 
